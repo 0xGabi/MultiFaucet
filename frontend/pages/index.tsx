@@ -138,7 +138,7 @@ export default function Home({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  identity
+                  identify
                 </a>{" "}
                 access.
               </p>
