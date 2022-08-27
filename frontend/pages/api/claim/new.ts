@@ -40,20 +40,10 @@ function generateAlchemy(partial: string): string {
 }
 
 // Setup networks
-const ARBITRUM: number = 421611;
 const mainRpcNetworks: Record<number, string> = {
-  //3: generateAlchemy("eth-ropsten.alchemyapi.io"),
-  4: generateAlchemy("eth-rinkeby.alchemyapi.io"),
-  5: generateAlchemy("eth-goerli.alchemyapi.io"),
-  42: generateAlchemy("eth-kovan.alchemyapi.io"),
+  1331: "https://eip-4844.optimism.io",
 };
-const secondaryRpcNetworks: Record<number, string> = {
-  69: generateAlchemy("opt-kovan.g.alchemy.com"),
-  //1287: "https://rpc.api.moonbase.moonbeam.network",
-  80001: generateAlchemy("polygon-mumbai.g.alchemy.com"),
-  421611: generateAlchemy("arb-rinkeby.g.alchemy.com"),
-  //43113: "https://api.avax-test.network/ext/bc/C/rpc",
-};
+const secondaryRpcNetworks: Record<number, string> = {};
 
 // Setup faucet interface
 const iface = new ethers.utils.Interface([
@@ -139,8 +129,7 @@ async function processDrip(
       to: process.env.FAUCET_ADDRESS ?? "",
       from: wallet.address,
       gasPrice,
-      // Custom gas override for Arbitrum w/ min gas limit
-      gasLimit: network === ARBITRUM ? 5_000_000 : 500_000,
+      gasLimit: 500_000,
       data,
       nonce,
       type: 0,

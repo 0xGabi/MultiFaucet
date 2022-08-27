@@ -100,11 +100,11 @@ export default function Home({
       <div className={styles.home__cta}>
         <div>
           <a
-            href="https://paradigm.xyz"
+            href="https://www.eip4844.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image src="/logo.svg" height="42.88px" width="180px" />
+            <Image src="/logo.png" height="90px" width="90px" />
           </a>
         </div>
         <h1>Bootstrap your testnet wallet</h1>
@@ -131,9 +131,9 @@ export default function Home({
           {!session ? (
             // If user is unauthenticated:
             <div className={styles.content__unauthenticated}>
-              {/* Reasoning for Twitter OAuth */}
+              {/* Reasoning for Discord OAuth */}
               <p>
-                To prevent faucet botting, you must sign in with Twitter. We
+                To prevent faucet botting, you must sign in with Discord. We
                 request{" "}
                 <a
                   href="https://developer.twitter.com/en/docs/apps/app-permissions"
@@ -145,12 +145,12 @@ export default function Home({
                 access.
               </p>
 
-              {/* Sign in with Twitter */}
+              {/* Sign in with Discord */}
               <button
                 className={styles.button__main}
-                onClick={() => signIn("twitter")}
+                onClick={() => signIn("discord")}
               >
-                Sign In with Twitter
+                Sign In with Discord
               </button>
             </div>
           ) : (
@@ -246,11 +246,6 @@ export default function Home({
             <p>
               Your Twitter account must have at least 1 Tweet, 15 followers, and
               be older than 1 month.
-            </p>
-            <p className={styles.home__card_content_section_lh}>
-              By default, the faucet drips on the Ethereum testnets (Rinkeby,
-              Ropsten, Kovan, Görli). You can choose to receive a drip on other
-              networks when requesting tokens.
             </p>
             <p>You can claim from the faucet once every 24 hours.</p>
           </div>
