@@ -65,8 +65,6 @@ export default function Home({
   const [firstClaim, setFirstClaim] = useState<boolean>(false);
   // Loading status
   const [loading, setLoading] = useState<boolean>(false);
-  // Claim other
-  const [claimOther, setClaimOther] = useState<boolean>(false);
 
   // Collect details about addresses
   const { networkCount, sortedAddresses } = getAddressDetails();
@@ -80,7 +78,7 @@ export default function Home({
 
     try {
       // Post new claim with recipient address
-      await axios.post("/api/claim/new", { address, others: claimOther });
+      await axios.post("/api/claim/new", { address });
       // Toast if success + toggle claimed
       toast.success("Tokens dispersed—check balances shortly!");
       setClaimed(true);
@@ -100,11 +98,11 @@ export default function Home({
       <div className={styles.home__cta}>
         <div>
           <a
-            href="https://paradigm.xyz"
+            href="https://www.eip4844.com"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image src="/logo.svg" height="42.88px" width="180px" />
+            <Image src="/logo.png" height="90px" width="90px" />
           </a>
         </div>
         <h1>Bootstrap your testnet wallet</h1>
@@ -131,26 +129,26 @@ export default function Home({
           {!session ? (
             // If user is unauthenticated:
             <div className={styles.content__unauthenticated}>
-              {/* Reasoning for Twitter OAuth */}
+              {/* Reasoning for Discord OAuth */}
               <p>
-                To prevent faucet botting, you must sign in with Twitter. We
+                To prevent faucet botting, you must sign in with Discord. We
                 request{" "}
                 <a
-                  href="https://developer.twitter.com/en/docs/apps/app-permissions"
+                  href="https://discord.com/developers/docs/topics/oauth2#shared-resources-oauth2-scopes"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  read-only
+                  identity
                 </a>{" "}
                 access.
               </p>
 
-              {/* Sign in with Twitter */}
+              {/* Sign in with Discord */}
               <button
                 className={styles.button__main}
-                onClick={() => signIn("twitter")}
+                onClick={() => signIn("discord")}
               >
-                Sign In with Twitter
+                Sign In with Discord
               </button>
             </div>
           ) : (
@@ -188,19 +186,6 @@ export default function Home({
                     onChange={(e) => setAddress(e.target.value)}
                   />
 
-                  {/* Other networks checkbox */}
-                  <div className={styles.content__unclaimed_others}>
-                    <input
-                      type="checkbox"
-                      value={claimOther.toString()}
-                      onChange={() => setClaimOther((previous) => !previous)}
-                    />
-                    <label>
-                      Drip on additional networks (besides Rinkeby, Ropsten,
-                      Kovan, and Görli)
-                    </label>
-                  </div>
-
                   {isValidInput(address) ? (
                     // If address is valid, allow claiming
                     <button
@@ -222,9 +207,9 @@ export default function Home({
               )}
 
               {/* General among claimed or unclaimed, allow signing out */}
-              <div className={styles.content__twitter}>
+              <div className={styles.content__discord}>
                 <button onClick={() => signOut()}>
-                  Sign out @{session.twitter_handle}
+                  Sign out @{session.discord_name}
                 </button>
               </div>
             </div>
@@ -243,15 +228,6 @@ export default function Home({
         <div>
           <div className={styles.home__card_content_section}>
             <h4>General Information</h4>
-            <p>
-              Your Twitter account must have at least 1 Tweet, 15 followers, and
-              be older than 1 month.
-            </p>
-            <p className={styles.home__card_content_section_lh}>
-              By default, the faucet drips on the Ethereum testnets (Rinkeby,
-              Ropsten, Kovan, Görli). You can choose to receive a drip on other
-              networks when requesting tokens.
-            </p>
             <p>You can claim from the faucet once every 24 hours.</p>
           </div>
         </div>
@@ -385,7 +361,8 @@ function TokenAddress({
   return (
     <span className={styles.address}>
       <a
-        href={`https://${etherscanPrefix}/address/${address}`}
+        // TODO: update when blockexplorer available
+        // href={`https://${etherscanPrefix}/address/${address}`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -425,7 +402,7 @@ export async function getServerSideProps(context: any) {
     props: {
       session,
       // If session exists, collect claim status, else return false
-      claimed: session ? await hasClaimed(session.twitter_id) : false,
+      claimed: session ? await hasClaimed(session.discord_id) : false,
     },
   };
 }

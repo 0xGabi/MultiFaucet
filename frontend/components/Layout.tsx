@@ -41,10 +41,10 @@ function Head() {
       <link rel="shortcut icon" href="/favicon.ico" />
 
       {/* Primary Meta Tags */}
-      <title>Paradigm MultiFaucet | Bootstrap your testnet wallet</title>
+      <title>EIP-4844 MultiFaucet | Bootstrap your testnet wallet</title>
       <meta
         name="title"
-        content="Paradigm MultiFaucet | Bootstrap your testnet wallet"
+        content="EIP-4844 MultiFaucet | Bootstrap your testnet wallet"
       />
       <meta
         name="description"
@@ -53,10 +53,10 @@ function Head() {
 
       {/* OG + Facebook */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://faucet.paradigm.xyz" />
+      <meta property="og:url" content="https://eip4844-faucet.vercel.app" />
       <meta
         property="og:title"
-        content="Paradigm MultiFaucet | Bootstrap your testnet wallet"
+        content="EIP-4844 MultiFaucet | Bootstrap your testnet wallet"
       />
       <meta
         property="og:description"
@@ -64,15 +64,15 @@ function Head() {
       />
       <meta
         property="og:image"
-        content="https://faucet.paradigm.xyz/meta.png"
+        content="https://eip4844-faucet.vercel.app/meta.png"
       />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content="https://faucet.paradigm.xyz" />
+      <meta property="twitter:url" content="https://eip4844-faucet.vercel.app" />
       <meta
         property="twitter:title"
-        content="Paradigm MultiFaucet | Bootstrap your testnet wallet"
+        content="EIP-4844 MultiFaucet | Bootstrap your testnet wallet"
       />
       <meta
         property="twitter:description"
@@ -80,7 +80,7 @@ function Head() {
       />
       <meta
         property="twitter:image"
-        content="https://faucet.paradigm.xyz/meta.png"
+        content="https://eip4844-faucet.vercel.app/meta.png"
       />
     </HTMLHead>
   );
@@ -97,9 +97,7 @@ function Footer() {
         safety or correctness of the user interface or the smart contracts. They
         have not been audited and as such there can be no assurance they will
         work as intended, and users may experience delays, failures, errors,
-        omissions or loss of transmitted information. Paradigm is not liable for
-        any of the foregoing. Users should proceed with caution and use at their
-        own risk.
+        omissions or loss of transmitted information.
       </p>
     </div>
   );
