@@ -6,13 +6,13 @@ import type { NextApiRequest, NextApiResponse } from "next"; // Types
 const client = new Redis(process.env.REDIS_URL);
 
 /**
- * Checks if a twitter id has claimed from faucet in last 24h
- * @param {string} twitter_id to check
+ * Checks if a discord id has claimed from faucet in last 24h
+ * @param {string} discord_id to check
  * @returns {Promise<boolean>} claim status
  */
-export async function hasClaimed(twitter_id: string): Promise<boolean> {
+export async function hasClaimed(discord_id: string): Promise<boolean> {
   // Check if key exists
-  const resp: string | null = await client.get(twitter_id);
+  const resp: string | null = await client.get(discord_id);
   // If exists, return true, else return false
   return resp ? true : false;
 }
@@ -24,7 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (session) {
     try {
       // Collect claim status
-      const claimed: boolean = await hasClaimed(session.twitter_id);
+      const claimed: boolean = await hasClaimed(session.discord_id);
       res.status(200).send({ claimed });
     } catch {
       // If failure, return error checking status

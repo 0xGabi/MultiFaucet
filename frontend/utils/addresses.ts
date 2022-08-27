@@ -3,10 +3,10 @@ export const ADDRESSES = [
   {
     network: "eip4844",
     depleted: false,
-    disclaimer: "Faucet drips 1 ETH, 1 wETH, 500 DAI, and 5 NFTs (ERC721).",
+    disclaimer: "Faucet drips 1 ETH, 1 wETH, 5000 DAI, and 5 NFTs (ERC721).",
     etherscanPrefix: "",
     formattedName: "EIP-4844 Devnet v1",
-    connectionDetails: "",
+    connectionDetails: "https://hackmd.io/@inphi/SJMXL1P6c",
     autoconnect: {
       chainId: "0x533",
       chainName: "",

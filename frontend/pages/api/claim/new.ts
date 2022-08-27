@@ -1,43 +1,15 @@
 import Redis from "ioredis"; // Redis
 import { ethers } from "ethers"; // Ethers
-import { WebClient } from "@slack/web-api"; // Slack
 import { isValidInput } from "pages/index"; // Address check
-import parseTwitterDate from "utils/dates"; // Parse Twitter dates
 import { getSession } from "next-auth/client"; // Session management
 import { hasClaimed } from "pages/api/claim/status"; // Claim status
 import type { NextApiRequest, NextApiResponse } from "next"; // Types
 
-// Setup whitelist (Anish)
-const whitelist: string[] = ["1078014622525988864"];
+// Setup whitelist ()
+const whitelist: string[] = [""];
 
 // Setup redis client
 const client = new Redis(process.env.REDIS_URL);
-
-// Setup slack client
-const slack = new WebClient(process.env.SLACK_ACCESS_TOKEN);
-const slackChannel: string = process.env.SLACK_CHANNEL ?? "";
-/**
- * Post message to slack channel
- * @param {string} message to post
- */
-async function postSlackMessage(message: string): Promise<void> {
-  await slack.chat.postMessage({
-    channel: slackChannel,
-    text: message,
-    // Ping user on error
-    link_names: true,
-  });
-}
-
-/**
- * Generate Alchemy RPC endpoint url from partials
- * @param {string} partial of network
- * @returns {string} full rpc url
- */
-function generateAlchemy(partial: string): string {
-  // Combine partial + API key
-  return `https://${partial}/v2/${process.env.ALCHEMY_API_KEY}`;
-}
 
 // Setup networks
 const mainRpcNetworks: Record<number, string> = {
@@ -135,18 +107,6 @@ async function processDrip(
       type: 0,
     });
   } catch (e) {
-    await postSlackMessage(
-      `@anish Error dripping for ${provider.network.chainId}, ${String(
-        (e as any).reason
-      )}`
-    );
-
-    // Delete nonce key to attempt at self-heal
-    const delStatus: number = await client.del(
-      `nonce-${provider.network.chainId}`
-    );
-    await postSlackMessage(`Attempting self heal: ${delStatus}`);
-
     // Throw error
     throw new Error(`Error when processing drip for network ${network}`);
   }
@@ -156,29 +116,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Collect session (force any for extra twitter params)
   const session: any = await getSession({ req });
   // Collect address
-  const { address, others }: { address: string; others: boolean } = req.body;
+  const { address }: { address: string } = req.body;
 
   if (!session) {
     // Return unauthed status
     return res.status(401).send({ error: "Not authenticated." });
-  }
-
-  // Basic anti-bot measures
-  const ONE_MONTH_SECONDS = 2629746;
-  if (
-    // Less than 1 tweet
-    session.twitter_num_tweets == 0 ||
-    // Less than 15 followers
-    session.twitter_num_followers < 15 ||
-    // Less than 1 month old
-    new Date().getTime() -
-      parseTwitterDate(session.twitter_created_at).getTime() <
-      ONE_MONTH_SECONDS
-  ) {
-    // Return invalid Twitter account status
-    return res
-      .status(400)
-      .send({ error: "Twitter account does not pass anti-bot checks." });
   }
 
   if (!address || !isValidInput(address)) {
@@ -210,7 +152,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     addr = resolvedAddress;
   }
 
-  const claimed: boolean = await hasClaimed(session.twitter_id);
+  const claimed: boolean = await hasClaimed(session.discord_id);
   if (claimed) {
     // Return already claimed status
     return res.status(400).send({ error: "Already claimed in 24h window" });
@@ -222,13 +164,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // Generate transaction data
   const data: string = generateTxData(addr);
 
-  // Networks to claim on (based on others toggle)
-  const otherNetworks: Record<number, string> = others
-    ? secondaryRpcNetworks
-    : {};
+  // Networks to claim on
   const claimNetworks: Record<number, string> = {
     ...mainRpcNetworks,
-    ...otherNetworks,
   };
 
   // For each main network
@@ -238,9 +176,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       await processDrip(wallet, Number(networkId), data);
     } catch (e) {
       // If not whitelisted, force user to wait 15 minutes
-      if (!whitelist.includes(session.twitter_id)) {
+      if (!whitelist.includes(session.discord_id)) {
         // Update 24h claim status
-        await client.set(session.twitter_id, "true", "EX", 900);
+        await client.set(session.discord_id, "true", "EX", 900);
       }
 
       // If error in process, revert
@@ -251,9 +189,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   // If not whitelisted
-  if (!whitelist.includes(session.twitter_id)) {
+  if (!whitelist.includes(session.discord_id)) {
     // Update 24h claim status
-    await client.set(session.twitter_id, "true", "EX", 86400);
+    await client.set(session.discord_id, "true", "EX", 86400);
   }
 
   return res.status(200).send({ claimed: address });
