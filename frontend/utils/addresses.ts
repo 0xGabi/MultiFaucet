@@ -9,7 +9,7 @@ export const ADDRESSES = [
     connectionDetails: "https://hackmd.io/@inphi/SJMXL1P6c",
     autoconnect: {
       chainId: "0x533",
-      chainName: "",
+      chainName: "EIP-4844 Devnet v1",
       nativeCurrency: {
         name: "Ethereum",
         symbol: "ETH",
