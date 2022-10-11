@@ -13,6 +13,7 @@ const client = new Redis(process.env.REDIS_URL);
 
 // Setup networks
 const mainRpcNetworks: Record<number, string> = {
+  1332: "TBD",
   1331: "https://eip-4844.optimism.io",
 };
 const secondaryRpcNetworks: Record<number, string> = {};

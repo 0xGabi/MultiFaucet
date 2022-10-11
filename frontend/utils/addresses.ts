@@ -5,7 +5,30 @@ export const ADDRESSES = [
     depleted: false,
     disclaimer: "Faucet drips 1 ETH, 1 wETH, 5000 DAI, and 5 NFTs (ERC721).",
     etherscanPrefix: "",
-    formattedName: "EIP-4844 Devnet v1",
+    formattedName: "Devnet v2",
+    connectionDetails: "https://hackmd.io/@inphi/SJKLtgJXs",
+    autoconnect: {
+      chainId: "0x534",
+      chainName: "EIP-4844 Devnet v2",
+      nativeCurrency: {
+        name: "Ethereum",
+        symbol: "ETH",
+        decimals: 18,
+      },
+      rpcUrls: ["TBD"],
+    },
+    addresses: {
+      NFTs: "0x04F1e772E19234aCF03A8A9BC72d0308AAaFEB07",
+      wETH: "0xac6e29F8DF22Ebbd22CB089f52558760F3ba4247",
+      DAI: "0x0bD9060153E7CA86341E9B7D53df2bc0eC51B985",
+    },
+  },
+  {
+    network: "eip4844",
+    depleted: false,
+    disclaimer: "Faucet drips 1 ETH, 1 wETH, 5000 DAI, and 5 NFTs (ERC721).",
+    etherscanPrefix: "",
+    formattedName: "Devnet v1",
     connectionDetails: "https://hackmd.io/@inphi/SJMXL1P6c",
     autoconnect: {
       chainId: "0x533",
