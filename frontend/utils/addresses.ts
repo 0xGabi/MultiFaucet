@@ -18,9 +18,9 @@ export const ADDRESSES = [
       rpcUrls: ["TBD"],
     },
     addresses: {
-      NFTs: "0x04F1e772E19234aCF03A8A9BC72d0308AAaFEB07",
-      wETH: "0xac6e29F8DF22Ebbd22CB089f52558760F3ba4247",
-      DAI: "0x0bD9060153E7CA86341E9B7D53df2bc0eC51B985",
+      NFTs: "TBD",
+      wETH: "TBD",
+      DAI: "TBD",
     },
   },
   {
