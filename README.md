@@ -1,6 +1,6 @@
 # EIP4844 MultiFaucet <a href="#"><img align="right" src="./frontend/public/logo.png" height="80px" /></a>
 
-MultiFaucet drips ETH, tokens, and NFTs for the [EIP4844](https://www.eip4844.com) Devnet v1.
+MultiFaucet drips ETH, tokens, and NFTs for the [EIP4844](https://www.eip4844.com) devnets.
 
 READMEs can be found individual subdirectories:
 

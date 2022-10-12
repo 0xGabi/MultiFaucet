@@ -5,7 +5,31 @@ export const ADDRESSES = [
     depleted: false,
     disclaimer: "Faucet drips 1 ETH, 1 wETH, 5000 DAI, and 5 NFTs (ERC721).",
     etherscanPrefix: "",
-    formattedName: "EIP-4844 Devnet v1",
+    formattedName: "Devnet v2",
+    connectionDetails: "https://hackmd.io/@inphi/SJKLtgJXs",
+    autoconnect: {
+      chainId: "0x534",
+      chainName: "EIP-4844 Devnet v2",
+      nativeCurrency: {
+        name: "Ethereum",
+        symbol: "ETH",
+        decimals: 18,
+      },
+      rpcUrls: ["https://eip-4844-alpha.optimism.io"],
+    },
+    addresses: {
+      NFTs: "0x2877fd7B43d7F8B71e46c31cc12907fD94270a64",
+      wETH: "0x2828141cE50567E3864470Ab5D0f0ADB193925be",
+      DAI: "0xe31e5400f70ab1DC1010B1cB24FD97ffEfD37aA1",
+    },
+  },
+  {
+    network: "eip4844",
+    depleted: false,
+    disclaimer:
+      "Faucet drips 0.5 ETH, 0.5 wETH, 5000 DAI, and 5 NFTs (ERC721).",
+    etherscanPrefix: "",
+    formattedName: "Devnet v1",
     connectionDetails: "https://hackmd.io/@inphi/SJMXL1P6c",
     autoconnect: {
       chainId: "0x533",
@@ -24,6 +48,11 @@ export const ADDRESSES = [
     },
   },
 ];
+
+const FAUCET_ADDRESS = {
+  1332: "0x2877fd7b43d7f8b71e46c31cc12907fd94270a64",
+  1331: "0x04f1e772e19234acf03a8a9bc72d0308aaafeb07",
+};
 
 /**
  * Export details about networks
@@ -47,4 +76,8 @@ export function getAddressDetails() {
 
   // Return details
   return { networkCount, sortedAddresses };
+}
+
+export function getFaucetAddress(network: number): string {
+  return FAUCET_ADDRESS[network as keyof typeof FAUCET_ADDRESS];
 }

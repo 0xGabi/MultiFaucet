@@ -4,6 +4,7 @@ import { isValidInput } from "pages/index"; // Address check
 import { getSession } from "next-auth/client"; // Session management
 import { hasClaimed } from "pages/api/claim/status"; // Claim status
 import type { NextApiRequest, NextApiResponse } from "next"; // Types
+import { getFaucetAddress } from "utils/addresses";
 
 // Setup whitelist ()
 const whitelist: string[] = [""];
@@ -13,6 +14,7 @@ const client = new Redis(process.env.REDIS_URL);
 
 // Setup networks
 const mainRpcNetworks: Record<number, string> = {
+  1332: "https://eip-4844-alpha.optimism.io",
   1331: "https://eip-4844.optimism.io",
 };
 const secondaryRpcNetworks: Record<number, string> = {};
@@ -98,7 +100,7 @@ async function processDrip(
   // Return populated transaction
   try {
     await rpcWallet.sendTransaction({
-      to: process.env.FAUCET_ADDRESS ?? "",
+      to: getFaucetAddress(network) ?? "",
       from: wallet.address,
       gasPrice,
       gasLimit: 500_000,

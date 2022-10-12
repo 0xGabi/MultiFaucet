@@ -1,6 +1,9 @@
 {
   "name": "eip4844-multifaucet",
-  "authors": "Anish Agnihotri",
+  "author": "Anish Agnihotri",
+  "contributors": [
+    "Gabriel Garcia <hi@0xgabi.dev>"
+  ],
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
