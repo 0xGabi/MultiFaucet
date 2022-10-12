@@ -3,7 +3,8 @@ export const ADDRESSES = [
   {
     network: "eip4844",
     depleted: false,
-    disclaimer: "Faucet drips 1 ETH, 1 wETH, 5000 DAI, and 5 NFTs (ERC721).",
+    disclaimer:
+      "Faucet drips 0.5 ETH, 0.5 wETH, 5000 DAI, and 5 NFTs (ERC721).",
     etherscanPrefix: "",
     formattedName: "Devnet v2",
     connectionDetails: "https://hackmd.io/@inphi/SJKLtgJXs",
@@ -26,8 +27,7 @@ export const ADDRESSES = [
   {
     network: "eip4844",
     depleted: false,
-    disclaimer:
-      "Faucet drips 0.5 ETH, 0.5 wETH, 5000 DAI, and 5 NFTs (ERC721).",
+    disclaimer: "Faucet drips 1 ETH, 1 wETH, 5000 DAI, and 5 NFTs (ERC721).",
     etherscanPrefix: "",
     formattedName: "Devnet v1",
     connectionDetails: "https://hackmd.io/@inphi/SJMXL1P6c",
